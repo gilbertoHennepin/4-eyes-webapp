@@ -1,5 +1,9 @@
 # 4 Eyes App 🖥️📱
 
+<div align="center">
+  <img src="images/logo.jpg" alt="4 Eyes Logo" width="300" />
+</div>
+
 4 Eyes is a real-time web application that turns your phone into a smart AI camera. 
 Stream your phone's camera feed directly to your computer browser using WebRTC, and use the Google Gemini Vision API to instantly analyze what the camera sees. The AI will even read its answers out loud to you!
 
