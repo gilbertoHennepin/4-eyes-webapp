@@ -1,0 +1,23 @@
+server:
+  port: 8443
+  address: 0.0.0.0
+  ssl:
+    key-store: classpath:keystore.p12
+    key-store-password: foureyes123
+    key-store-type: PKCS12
+    key-alias: foureyes
+
+spring:
+  application:
+    name: four-eyes-app
+  thymeleaf:
+    cache: false
+
+# Gemini Configuration — set GEMINI_API_KEY environment variable
+gemini:
+  api-key: {YOUR-API-KEY}
+  model: gemini-flash-latest
+
+logging:
+  level:
+    com.foureyes: DEBUG

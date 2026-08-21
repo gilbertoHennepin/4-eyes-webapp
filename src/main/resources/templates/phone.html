@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4 Eyes — Camera</title>
+    <meta name="description" content="Stream your phone camera to a paired computer.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="/css/style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📱</text></svg>">
+</head>
+<body>
+    <div class="bg-animation"></div>
+
+    <main class="app-page">
+        <!-- Header -->
+        <header class="app-header glass-card">
+            <div class="header-left">
+                <a href="/" class="back-link">← Back</a>
+                <h1 class="header-title gradient-text">📱 Camera</h1>
+            </div>
+            <div class="header-right">
+                <div class="room-badge">
+                    <span class="badge-label">Room</span>
+                    <span class="badge-code" id="roomDisplay" th:text="${room}">---</span>
+                </div>
+                <div class="status-indicator" id="statusIndicator">
+                    <span class="status-dot"></span>
+                    <span class="status-text" id="statusText">Connecting...</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Camera Feed -->
+        <div class="video-container glass-card animate-in">
+            <video id="localVideo" autoplay playsinline muted></video>
+            <div class="video-overlay" id="videoOverlay">
+                <div class="loading-spinner"></div>
+                <p>Starting camera...</p>
+            </div>
+        </div>
+
+        <!-- Camera Controls -->
+        <div class="controls glass-card">
+            <button id="btnFlipCamera" class="btn btn-secondary" title="Switch between front and rear camera">
+                🔄 Flip Camera
+            </button>
+            <button id="btnToggleCamera" class="btn btn-secondary" title="Toggle camera on/off">
+                📷 Camera On
+            </button>
+        </div>
+    </main>
+
+    <script th:inline="javascript">
+        const ROOM_ID = [[${room}]];
+        const ROLE = 'sender';
+    </script>
+    <script th:src="@{/js/app.js?v=3}" src="/js/app.js?v=3"></script>
+</body>
+</html>

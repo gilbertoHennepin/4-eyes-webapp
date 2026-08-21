@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4 Eyes — Vision to Speech</title>
+    <meta name="description" content="Stream your phone camera to your computer, analyze with AI, and hear the response spoken aloud.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="/css/style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👁️</text></svg>">
+</head>
+<body>
+    <div class="bg-animation"></div>
+
+    <main class="landing">
+        <div class="glass-card landing-card animate-in">
+            <!-- Logo -->
+            <div class="logo">
+                <div class="logo-icon">👁️👁️</div>
+                <h1 class="gradient-text">4 Eyes</h1>
+                <p class="subtitle">Phone sees it. Computer speaks it.</p>
+            </div>
+
+            <!-- Room Code -->
+            <div class="room-section">
+                <label for="roomCode" class="input-label">Room Code</label>
+                <div class="input-group">
+                    <input type="text" id="roomCode"
+                           placeholder="Enter or generate a code"
+                           maxlength="8"
+                           autocomplete="off"
+                           spellcheck="false">
+                    <button id="generateCode" class="btn btn-icon" title="Generate random code">
+                        🎲
+                    </button>
+                </div>
+            </div>
+
+            <!-- Role Selection -->
+            <div class="role-section">
+                <p class="section-label">Choose your role</p>
+                <div class="role-buttons">
+                    <button id="btnSender" class="btn btn-role" onclick="joinAs('sender')">
+                        <span class="role-icon">📱</span>
+                        <span class="role-title">Camera</span>
+                        <span class="role-desc">Stream from phone</span>
+                    </button>
+                    <button id="btnViewer" class="btn btn-role" onclick="joinAs('viewer')">
+                        <span class="role-icon">🖥️</span>
+                        <span class="role-title">Viewer</span>
+                        <span class="role-desc">Watch &amp; analyze</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- How it works -->
+            <div class="info-section">
+                <div class="info-item">
+                    <span class="info-step">1</span>
+                    <span>Both devices enter the same room code</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-step">2</span>
+                    <span>Phone streams camera → Computer views</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-step">3</span>
+                    <span>AI analyzes what it sees &amp; speaks the answer</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function generateCode() {
+            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+            let code = '';
+            for (let i = 0; i < 6; i++) {
+                code += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return code;
+        }
+
+        document.getElementById('generateCode').addEventListener('click', () => {
+            const input = document.getElementById('roomCode');
+            input.value = generateCode();
+            input.classList.add('flash');
+            setTimeout(() => input.classList.remove('flash'), 300);
+        });
+
+        // Auto-generate on load
+        if (!document.getElementById('roomCode').value) {
+            document.getElementById('roomCode').value = generateCode();
+        }
+
+        function joinAs(role) {
+            const roomCode = document.getElementById('roomCode').value.trim().toUpperCase();
+            if (!roomCode) {
+                alert('Please enter a room code');
+                return;
+            }
+            if (role === 'sender') {
+                window.location.href = '/phone?room=' + encodeURIComponent(roomCode);
+            } else {
+                window.location.href = '/viewer?room=' + encodeURIComponent(roomCode);
+            }
+        }
+
+        document.getElementById('roomCode').addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.target.value = e.target.value.toUpperCase();
+            }
+        });
+
+        // Auto-uppercase as user types
+        document.getElementById('roomCode').addEventListener('input', (e) => {
+            const pos = e.target.selectionStart;
+            e.target.value = e.target.value.toUpperCase();
+            e.target.setSelectionRange(pos, pos);
+        });
+    </script>
+</body>
+</html>
