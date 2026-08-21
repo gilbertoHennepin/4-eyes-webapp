@@ -1,4 +1,4 @@
-# 4 Eyes App 🖥️📱
+# 4 Eyes App 
 
 <div align="center">
   <img src="images/logo.jpg" alt="4 Eyes Logo" width="300" />
